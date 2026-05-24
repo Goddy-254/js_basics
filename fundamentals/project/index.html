@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Local storage</title>
+</head>
+
+<body>
+    <h1>Local storage</h1>
+    <form id="loginForm">
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name">
+
+        <label for="name">Email:</label>
+        <input type="email" name="email" id="email">
+        <button type="submit">Login</button>
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+
+            </tr>
+        </thead>
+        <tbody id="userTable"></tbody>
+    </table>
+
+    <script>
+
+        document.getElementById("loginForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            let name = document.getElementById("name").value;
+            localStorage.setItem("username", name);
+
+
+            let email = document.getElementById("email").value;
+            localStorage.setItem("email", email);
+            alert("saved on local storage");
+
+            //one single record
+            let user = { name, email };
+            // console.log(typeof user);           
+            //  // get existing data
+            let users = [];
+            try {
+                users = JSON.parse(localStorage.getItem("users")) || [];
+            } catch (e) {
+                users = [];
+            }
+            users.push(user);
+            localStorage.setItem("users", JSON.stringify(users));
+
+            displayUsers();
+
+            document.getElementById("loginForm").reset();
+        });
+
+        function displayUsers() {
+            let users = [];
+            try {
+                users = JSON.parse(localStorage.getItem("users")) || [];
+            } catch (e) {
+                users = [];
+            }
+            let table = document.getElementById("userTable");
+            table.innerHTML = "";
+            users.forEach(user => {
+                let row = `
+                    <tr>
+                        <td>${user.name}</td>
+                        <td>${user.email}</td>
+                    </tr>
+                `;
+                table.innerHTML += row;
+            });
+        }
+
+            //     let storedName = localStorage.getItem("username");
+            //     let storedEmail = localStorage.getItem("email");
+            //     if (storedName && storedEmail) {
+            //         document.getElementById("output").innerText = `Welcome ${storedName} with email ${storedEmail}`
+            //     }
+
+    </script>
+</body>
+
+</html>

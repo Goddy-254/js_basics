@@ -1,0 +1,66 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prime numbers</title>
+  </head>
+
+  <body>
+    <!-- <div>
+      <form
+        style="
+          display: flex;
+          flex-direction: column;
+          width: 400px;
+          margin: auto;
+        "
+      > -->
+    <input type="number" id="num1" style="padding: 10px; margin-bottom: 10px" />
+    <input type="number" id="num2" style="padding: 10px; margin-bottom: 10px" />
+    <button onclick="primeNumbers()">Submit</button>
+    <!-- </form> -->
+    <!-- </div> -->
+    <p id="display"></p>
+    <script>
+      let array = [];
+      let primers = "";
+      function primeNumbers() {
+        let val1 = document.getElementById("num1");
+        let val2 = document.getElementById("num2");
+
+        let num1 = parseInt(val1.value);
+        let num2 = parseInt(val2.value);
+
+        if (val1.value === "" || val2.value === "") {
+          document.getElementById("display").innerText = "Input is Empty";
+        } else if (isNaN(num1) || isNaN(num2)) {
+          document.getElementById("display").innerText =
+            "Please enter a valid number";
+        } else {
+          for (let i = num1; i <= num2; i++) {
+            let isPrime = true;
+
+            if (i < 2) {
+              isPrime = false;
+            } else {
+              for (let j = 2; j < i; j++) {
+                if (i % j === 0) {
+                  isPrime = false;
+                  
+                }
+              }
+            }
+            if (isPrime) {
+              array.push(i);
+
+              primers += i;
+            }
+          }
+        }
+        document.getElementById("display").innerText = "Prime numbers: " + array.join(", ");
+        val1.value = "";
+        val2.value = "";
+      }
+    </script>
+  </body>
+</html>

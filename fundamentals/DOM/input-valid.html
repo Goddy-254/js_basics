@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Live Login Validation</title>
+  <style>
+    body {
+      font-family: Arial;
+    }
+
+    input {
+      display: block;
+      margin-bottom: 5px;
+      padding: 8px;
+      width: 250px;
+    }
+
+    .error {
+      color: red;
+      font-size: 14px;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .input-error {
+      border: 1px solid red;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Login</h2>
+
+<form>
+
+  <!-- Username -->
+  <label>Username</label>
+  <input type="text" id="username">
+  <span id="usernameError" class="error"></span>
+
+  <!-- Email -->
+  <label>Email</label>
+  <input type="text" id="email">
+  <span id="emailError" class="error"></span>
+
+  <!-- Password -->
+  <label>Password</label>
+  <input type="password" id="password">
+  <span id="passwordError" class="error"></span>
+
+</form>
+
+<script>
+  const username = document.getElementById("username");
+  const email = document.getElementById("email");
+  const password = document.getElementById("password");
+
+  // Username live validation
+  username.addEventListener("input", function () {
+    const error = document.getElementById("usernameError");
+
+    error.textContent = "";
+    username.classList.remove("input-error");
+
+    if (username.value.trim().length < 3) {
+      error.textContent = "At least 3 characters";
+      username.classList.add("input-error");
+    }
+  });
+
+  // Email live validation
+  email.addEventListener("input", function () {
+    const error = document.getElementById("emailError");
+    const pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+
+    error.textContent = "";
+    email.classList.remove("input-error");
+
+    if (!email.value.match(pattern)) {
+      error.textContent = "Invalid email";
+      email.classList.add("input-error");
+    }
+  });
+
+  // Password live validation
+  password.addEventListener("input", function () {
+    const error = document.getElementById("passwordError");
+
+    error.textContent = "";
+    password.classList.remove("input-error");
+
+    if (password.value.trim() === "" || password.value.length < 6 ) {
+      error.textContent = "Password required and length";
+      password.classList.add("input-error");
+    }
+  });
+</script>
+
+</body>
+</html>

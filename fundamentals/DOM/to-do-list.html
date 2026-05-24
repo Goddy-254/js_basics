@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>To-Do App</title>
+  <style>
+    body {
+      font-family: Arial;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+
+    h2 {
+      margin-bottom: 10px;
+    }
+
+    input {
+      padding: 8px;
+      width: 250px;
+    }
+
+    button {
+      padding: 8px 12px;
+      margin-left: 5px;
+      cursor: pointer;
+    }
+
+    ul {
+      margin-top: 20px;
+      padding: 0;
+      list-style: none;
+    }
+
+    li {
+      background: white;
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .completed {
+      text-decoration: line-through;
+      color: gray;
+    }
+
+    .actions button {
+      margin-left: 5px;
+    }
+  </style>
+</head>
+<body> 
+
+  <h2>To-Do List</h2>
+
+  <input type="text" id="taskInput" placeholder="Enter task">
+  <button id="addBtn">Add</button>
+
+  <ul id="taskList"></ul>
+
+  <script>
+    const input = document.getElementById("taskInput");
+    const addBtn = document.getElementById("addBtn");
+    const list = document.getElementById("taskList");
+
+    // Load tasks on page load
+    document.addEventListener("DOMContentLoaded", loadTasks);
+
+    // Add button
+    addBtn.addEventListener("click", addTask);
+
+    // Enter key
+    input.addEventListener("keyup", function (e) {
+      if (e.key === "Enter") addTask();
+    });
+
+    function addTask() {
+      const text = input.value.trim();
+      if (text === "") return;
+
+      createTaskElement(text, false);
+      input.value = "";
+
+      saveTasks();
+    }
+
+    function createTaskElement(text, completed) {
+      const li = document.createElement("li");
+
+      const span = document.createElement("span");
+      span.textContent = text;
+
+      if (completed) span.classList.add("completed");
+
+      span.addEventListener("click", function () {
+        span.classList.toggle("completed");
+        saveTasks();
+      });
+
+      const actions = document.createElement("div");
+      actions.classList.add("actions");
+
+      // Edit button
+      const editBtn = document.createElement("button");
+      editBtn.textContent = "Edit";
+
+      editBtn.addEventListener("click", function () {
+        const newText = prompt("Edit task:", span.textContent);
+        if (newText && newText.trim() !== "") {
+          span.textContent = newText;
+          saveTasks();
+        }
+      });
+
+      // Delete button
+      const deleteBtn = document.createElement("button");
+      deleteBtn.textContent = "Delete";
+
+      deleteBtn.addEventListener("click", function () {
+        li.remove();
+        saveTasks();
+      });
+
+      actions.appendChild(editBtn);
+      actions.appendChild(deleteBtn);
+
+      li.appendChild(span);
+      li.appendChild(actions);
+
+      list.appendChild(li);
+    }
+
+    function saveTasks() {
+      const tasks = [];
+
+      document.querySelectorAll("#taskList li").forEach(li => {
+        const span = li.querySelector("span");
+
+        tasks.push({
+          text: span.textContent,
+          completed: span.classList.contains("completed")
+        });
+      });
+
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+    }
+
+    function loadTasks() {
+      const saved = JSON.parse(localStorage.getItem("tasks")) || [];
+
+      saved.forEach(task => {
+        createTaskElement(task.text, task.completed);
+      });
+    }
+  </script>
+
+</body>
+</html>

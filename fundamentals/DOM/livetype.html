@@ -1,0 +1,20 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Live Typing</title>
+  </head>
+  <body>
+    <input type="text" id="input" />
+    <p id="output"></p>
+    <script>
+      let input = document.getElementById("input");
+      let output = document.getElementById("output");
+
+      input.addEventListener("input", () => {
+
+        output.textContent = input.value;
+      })
+    </script>
+  </body>
+</html>

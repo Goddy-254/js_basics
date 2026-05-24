@@ -1,0 +1,41 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <fieldset style="border-radius: 15px; width: 400px; margin: auto">
+      <legend>Fees Calculator</legend>
+      <input type="text" id="name" placeholder="enter student name" />
+      <br /><br />
+      <input type="number" id="age" placeholder="enter age" /> <br /><br />
+      <input type="number" id="fee" placeholder="enter tuition fee" />
+      <br /><br />
+      <input type="number" id="discount" placeholder="discount in %" />
+      <br /><br />
+      <button onclick="getInformation()">Get final fee:</button><br />
+    </fieldset>
+
+    <p id="display"></p>
+    <script>
+      function getInformation() {
+        let name = document.getElementById("name").value;
+        let age = document.getElementById("age").value;
+        let fee = document.getElementById("fee").value;
+        let discount = document.getElementById("discount").value;
+
+        let finalFee = fee - (discount / 100) * fee;
+
+         let table = document.getElementById("display").innerHTML = `
+            Student Name:${name}
+            Age: ${age}
+            fee: ${fee}
+            discount:${discount}
+            final fee: ${finalFee}`;
+        console.table(table);
+      }
+    </script>
+  </body>
+</html>

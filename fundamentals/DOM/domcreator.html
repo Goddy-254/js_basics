@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM Element Creator</title>
+    <style>
+        body {
+            font-family: Arial;
+            padding: 20px;
+        }
+
+        textarea {
+            width: 300px;
+            height: 80px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 8px 15px;
+            cursor: pointer;
+        }
+
+        #output {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            padding: 15px;
+            min-height: 100px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>DOM Element Creator</h2>
+
+    <label>Enter element (e.g. div, p, h1):</label>
+    <textarea id="input"></textarea>
+
+    <button id="createBtn">Create Element</button>
+
+    <div id="output"></div>
+
+    <script>
+        const input = document.getElementById("input");
+        const button = document.getElementById("createBtn");
+        const output = document.getElementById("output");
+
+        button.addEventListener("click", function () {
+            let value = input.value.trim();
+
+            if (value === "") {
+                alert("Please enter an element name");
+                return;
+            }
+
+            // Create the element
+            let newElement = document.createElement(value);
+
+            // Optional: give it some default text
+            newElement.textContent = "I am a " + value;
+
+            // Add it to the page
+            output.appendChild(newElement);
+
+            // Clear input
+            input.value = "";
+        });
+    </script>
+
+</body>
+</html>

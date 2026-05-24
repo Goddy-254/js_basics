@@ -1,0 +1,67 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <form style="border-radius: 15px; width: 400px; margin: auto" id="form">
+      <fieldset style="border-radius: 15px; width: 100%;">
+        <legend>Fees Calculator</legend>
+        <input type="text" id="name" placeholder="enter student name" />
+        <br /><br />
+        <input type="number" id="age" placeholder="enter age" /> <br /><br />
+        <input type="number" id="fee" placeholder="enter tuition fee" />
+        <br /><br />
+        <input type="number" id="discount" placeholder="discount in %" />
+        <br /><br />
+        <button type="submit">Get final fee:</button><br />
+      </fieldset>
+    </form>
+
+    <p id="display"></p>
+    <script>
+      let students = [];
+      let form = document.getElementById("form");
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        getInformation();
+      });
+
+      function getInformation() {
+        let name = document.getElementById("name").value;
+        let age = document.getElementById("age").value;
+        let fee = document.getElementById("fee").value;
+        let discount = document.getElementById("discount").value;
+
+        let finalFee = fee - (discount / 100) * fee;
+
+        // Store student info in array
+        students.push({ name, age, fee, discount, finalFee });
+       
+
+        // Display all students
+        displayStudents();
+
+        // Optionally, clear form fields
+        form.reset();
+      }
+
+      function displayStudents() {
+        let display = document.getElementById("display");
+        if (students.length === 0) {
+          display.innerHTML = "";
+          return;
+        }
+        let html = '<table border="1" style="margin:auto; border-radius:10px;">';
+        html += '<tr><th>Name</th><th>Age</th><th>Fee</th><th>Discount (%)</th><th>Final Fee</th></tr>';
+        students.forEach(s => {
+          html += `<tr><td>${s.name}</td><td>${s.age}</td><td>${s.fee}</td><td>${s.discount}</td><td>${s.finalFee}</td></tr>`;
+        });
+        html += '</table>';
+        display.innerHTML = html;
+      }
+    </script>
+  </body>
+</html>

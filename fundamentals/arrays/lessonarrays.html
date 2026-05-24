@@ -1,0 +1,59 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <input type="number" id="num" placeholder="Enter a number" /> <br /><br />
+      <button onclick="addScore()">Add Score</button><br /><br />
+      <button onclick="calculate()">Calculate</button>
+      <p id="results"></p>
+    </div>
+    <script>
+      let scores = [];
+
+      function addScore() {
+        let input = document.getElementById("num").value.trim();
+
+        if (input === "") {
+          document.getElementById("results").innerHTML = "please enter a value";
+          return;
+        }
+
+        let value = Number(input);
+
+        if (isNaN(value)) {
+          document.getElementById("results").innerHTML =
+            "please enter a valid number";
+          return;
+        }
+
+        if (value < 0) {
+          document.getElementById("results").innerHTML =
+            "please enter a positive number";
+          return;
+        }
+
+        scores.push(value);
+        document.getElementById("num").value = "";
+        document.getElementById("results").innerHTML = " ";
+      }
+
+      function calculate() {
+        let scoresList = "";
+        let total = 0;
+        for (let i = 0; i < scores.length; i++) {
+          scoresList += scores[i] + " ";
+          total += scores[i];
+        }
+        let average = total / scores.length;
+        let highestScore = Math.max(...scores);
+        let lowestScore = Math.min(...scores);
+        document.getElementById("results").innerHTML =
+          `The scores are: ${scoresList}<br> Total is: ${total} <br> The Average is:${average} <br> Highest Score: ${highestScore} <br> Lowest Score: ${lowestScore}`;
+      }
+    </script>
+  </body>
+</html>

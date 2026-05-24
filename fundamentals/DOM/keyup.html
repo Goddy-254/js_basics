@@ -1,0 +1,29 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="text" id="input" placeholder="Type and press Enter" />
+    <ul id="list"></ul>
+  </body>
+  <script>
+    let input = document.getElementById("input");
+    let list = document.getElementById("list");
+
+
+    input.addEventListener("keyup", () => {
+      if (event.key === "Enter") {
+        let value = input.value;
+
+        if (!value == "") {
+            let li = document.createElement("li");
+            li.textContent= value;
+            list.appendChild(li);
+        }
+      input.value = "";
+      }
+    });
+  </script>
+</html>
