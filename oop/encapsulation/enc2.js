@@ -24,7 +24,7 @@ class Student {
     }
 
     get studentMarks(){
-        this.marks
+       return this.marks;
     }
 
     set updateMarks(value){

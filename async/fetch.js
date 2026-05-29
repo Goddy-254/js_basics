@@ -10,11 +10,14 @@
 // }); 
 
 async function getUsers (){
-
+ try{
     let user = await fetch("https://jsonplaceholder.typicode.com/users");
     let responce = await user.json();
     console.log(responce);
-
+ }
+ catch(error){
+    console.log(error);
+ }
 
 }
 getUsers();
